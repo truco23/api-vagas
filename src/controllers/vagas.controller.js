@@ -1,8 +1,18 @@
+const vagasModel = require('../models/vagas.model');
+
 let api = {};
 
-api.list = (req, res) => {
+api.list = async (req, res) => {
 
-    res.json({ ok: true })
+    
+    try {
+        const vagas = await vagasModel.find({});
+        console.log('Vagas listadas');
+        res.json(vagas)
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ fail: error })
+    }
 }
 
 module.exports = api;
