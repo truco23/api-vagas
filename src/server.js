@@ -7,6 +7,7 @@ const port      = process.env.PORT || 3001;
 
 consign({ cwd: 'src' })
     .include('config')
+    .then('routes')
     .into(app)
 
 io.on('connection', socket => {
