@@ -10,9 +10,9 @@ const vagas = new mongoose.Schema({
         required: true,
         type: String
     },
-    idCategory: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'categorias'
-    }
+    // idCategory: {
+    //     type: mongoose.Schema.Types.ObjectId, ref: 'categorias'
+    // }
 }, {
     timestamps: true
 })

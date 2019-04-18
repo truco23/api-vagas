@@ -5,4 +5,5 @@ module.exports = app => {
     app
         .route('/vagas')
         .get(vagasController.list)
+        .post(vagasController.add)
 }
