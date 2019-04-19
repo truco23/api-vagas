@@ -21,12 +21,12 @@ api.listById = async (req, res) => {
     const vaga = await vagasModel.findOne( { _id: id} );
     
     try {
-        
+
         if(vaga) {
 
             console.log('############# Vaga localizada ###############');
             console.log(vaga);
-            console.log('############################');
+            console.log('#############################################');
             res.json(vaga);
             return;
         }
@@ -35,7 +35,7 @@ api.listById = async (req, res) => {
         res.status(400).json({ fail: error.message })
     }
     
-}
+};
 
 api.add = async (req, res) => {
 
@@ -47,13 +47,32 @@ api.add = async (req, res) => {
         if(vaga) {
             console.log('############# Vaga cadastrada ###############');
             console.log(vaga);
-            console.log('############################');
+            console.log('#############################################');
             res.json(vaga);
         }
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ fail: error.message })
     }
-}
+};
+
+api.remove = async (req, res) => {
+
+    const { id } = req.params;
+    const vaga = await vagasModel.findByIdAndDelete( { _id: id } );
+
+    try {
+        
+        if(vaga) {
+            console.log('############# Vaga removida ###############');
+            console.log(vaga);
+            console.log('###########################################');
+            res.status(200).json({ success: 'Vaga removida' });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message });
+    }
+};
 
 module.exports = api;

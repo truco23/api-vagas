@@ -10,4 +10,5 @@ module.exports = app => {
     app
         .route('/vagas/:id')
         .get(vagasController.listById)
+        .delete(vagasController.remove)
 }
