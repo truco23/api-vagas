@@ -52,8 +52,30 @@ api.add = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ fail: error.message })
+        res.status(400).json({ fail: error.message })
     }
+};
+
+api.update = async (req, res) => {
+
+    const { id } = req.params;
+    const vaga = await vagasModel.findByIdAndUpdate( id, req.body );
+
+    try {
+        
+        if(vaga) {
+            vaga.set(req.body);
+            vaga.save();
+            console.log('############# Vaga alterada ###############');
+            console.log(vaga);
+            console.log('###########################################');
+            res.json(vaga);
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message })
+    }
+    
 };
 
 api.remove = async (req, res) => {

@@ -10,5 +10,6 @@ module.exports = app => {
     app
         .route('/vagas/:id')
         .get(vagasController.listById)
+        .put(vagasController.update)
         .delete(vagasController.remove)
 }
