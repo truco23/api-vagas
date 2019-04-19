@@ -1,5 +1,5 @@
 const categoriasModel   = require('../models/categorias.model');
-let api                     = {};
+let api                 = {};
 
 api.list = async (req, res) => {
 
