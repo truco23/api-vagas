@@ -79,4 +79,25 @@ api.update = async (req, res) => {
     };
 };
 
+api.delete = async (req, res) => {
+
+    try {
+        
+        const { id } = req.params;
+        const categoria = await categoriasModel.findByIdAndDelete(id);
+
+        if(categoria) {
+
+            console.log('############# Categoria removida ###############');
+            console.log(categoria);
+            console.log('################################################');
+            res.status(200).json({ success: 'Categoria removida' });
+            return;
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: erro.message });
+    }
+}
+
 module.exports = api;
