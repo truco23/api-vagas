@@ -4,34 +4,54 @@ let api = {};
 
 api.list = async (req, res) => {
 
+    const vagas = await vagasModel.find({});
     
     try {
-        const vagas = await vagasModel.find({});
-        console.log('Vagas listadas');
+        console.log('############# Vagas listadas ###############');
         res.json(vagas)
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         res.status(400).json({ fail: error.message })
     }
 };
 
-api.add = async (req, res) => {
+api.listById = async (req, res) => {
 
-    console.log(req.body);
-
-    const { title, description  } = req.body;
+    const { id } = req.params;
+    const vaga = await vagasModel.findOne( { _id: id} );
     
     try {
         
-        const vaga = await vagasModel.create({ title, description });
+        if(vaga) {
 
-        console.log('############# Vaga cadastrada ###############');
-        console.log(vaga);
-        console.log('############################');
-        
-        res.json(vaga);
+            console.log('############# Vaga localizada ###############');
+            console.log(vaga);
+            console.log('############################');
+            res.json(vaga);
+            return;
+        }
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
+        res.status(400).json({ fail: error.message })
+    }
+    
+}
+
+api.add = async (req, res) => {
+
+    const { title, description  } = req.body;
+    const vaga = await vagasModel.create({ title, description });
+    
+    try {
+        
+        if(vaga) {
+            console.log('############# Vaga cadastrada ###############');
+            console.log(vaga);
+            console.log('############################');
+            res.json(vaga);
+        }
+    } catch (error) {
+        console.log(error.message);
         res.status(500).json({ fail: error.message })
     }
 }
