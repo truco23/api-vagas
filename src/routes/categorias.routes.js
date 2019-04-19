@@ -6,4 +6,8 @@ module.exports = app => {
         .route('/categorias')
         .get(categoriaController.list)
         .post(categoriaController.add)
+
+    app
+        .route('/categorias/:id')
+        .get(categoriaController.listById)
 }

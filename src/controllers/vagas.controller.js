@@ -3,10 +3,11 @@ const vagasModel = require('../models/vagas.model');
 let api = {};
 
 api.list = async (req, res) => {
-
-    const vagas = await vagasModel.find({}).populate('idCategory', 'name');
     
     try {
+        
+        const vagas = await vagasModel.find({}).populate('idCategory', 'name');
+
         console.log('############# Vagas listadas ###############');
         res.json(vagas)
     } catch (error) {
@@ -17,10 +18,10 @@ api.list = async (req, res) => {
 
 api.listById = async (req, res) => {
 
-    const { id } = req.params;
-    const vaga = await vagasModel.findOne( { _id: id} );
-    
     try {
+        
+        const { id } = req.params;
+        const vaga = await vagasModel.findOne( { _id: id} );
 
         if(vaga) {
 
@@ -39,10 +40,10 @@ api.listById = async (req, res) => {
 
 api.add = async (req, res) => {
 
-    const { title, description, idCategory  } = req.body;
-    const vaga = await vagasModel.create({ title, description, idCategory });
-    
     try {
+   
+        const { title, description, idCategory  } = req.body;
+        const vaga = await vagasModel.create({ title, description, idCategory });
         
         if(vaga) {
             console.log('############# Vaga cadastrada ###############');
@@ -58,10 +59,10 @@ api.add = async (req, res) => {
 
 api.update = async (req, res) => {
 
-    const { id } = req.params;
-    const vaga = await vagasModel.findByIdAndUpdate( id, req.body );
-
     try {
+        
+        const { id } = req.params;
+        const vaga = await vagasModel.findByIdAndUpdate( id, req.body );
         
         if(vaga) {
             vaga.set(req.body);
@@ -79,11 +80,11 @@ api.update = async (req, res) => {
 };
 
 api.remove = async (req, res) => {
-
-    const { id } = req.params;
-    const vaga = await vagasModel.findByIdAndDelete( { _id: id } );
-
+    
     try {
+        
+        const { id } = req.params;
+        const vaga = await vagasModel.findByIdAndDelete( { _id: id } );
         
         if(vaga) {
             console.log('############# Vaga removida ###############');
