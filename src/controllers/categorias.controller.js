@@ -54,4 +54,29 @@ api.add = async (req, res) => {
     }
 };
 
+api.update = async (req, res) => {
+
+    try {
+        
+        const { id }    = req.params;
+        const body      = req.body;
+        const categoria = await categoriasModel.findByIdAndUpdate( id, body );
+
+        if(categoria) {
+
+            categoria.set(body);
+            categoria.save();
+            console.log('############# Categoria alterada ###############');
+            console.log(categoria);
+            console.log('################################################');
+            res.json(categoria);
+            return;
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message });
+    };
+};
+
 module.exports = api;

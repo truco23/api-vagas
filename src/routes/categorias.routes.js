@@ -10,4 +10,5 @@ module.exports = app => {
     app
         .route('/categorias/:id')
         .get(categoriaController.listById)
+        .put(categoriaController.update)
 }
