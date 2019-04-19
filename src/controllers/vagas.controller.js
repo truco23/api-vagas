@@ -4,7 +4,7 @@ let api = {};
 
 api.list = async (req, res) => {
 
-    const vagas = await vagasModel.find({});
+    const vagas = await vagasModel.find({}).populate('idCategory', 'name');
     
     try {
         console.log('############# Vagas listadas ###############');
@@ -39,8 +39,8 @@ api.listById = async (req, res) => {
 
 api.add = async (req, res) => {
 
-    const { title, description  } = req.body;
-    const vaga = await vagasModel.create({ title, description });
+    const { title, description, idCategory  } = req.body;
+    const vaga = await vagasModel.create({ title, description, idCategory });
     
     try {
         
