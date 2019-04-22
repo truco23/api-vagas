@@ -92,6 +92,26 @@ api.update = async (req, res) => {
         console.log(error.message);
         res.status(400).json({ fail: error.message });
     }
+};
+
+api.remove = async (req, res) => {
+
+    try {
+        
+        const { id } = req.params;
+        const admin = await adminModel.findOneAndDelete({ _id: id });
+
+        if(admin) {
+
+            console.log('############# Admin removido ###############');
+            console.log(admin);
+            console.log('#############################################');
+            res.status(200).json({ success: 'Admin removido' });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message });
+    }
 }
 
 module.exports = api;
