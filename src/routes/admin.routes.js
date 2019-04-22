@@ -9,4 +9,8 @@ module.exports = app => {
     app
         .route('/admin/users/new')
         .post(adminController.add)
+
+    app
+        .route('/admin/users/:id')
+        .get(adminController.listById)
 };

@@ -19,6 +19,25 @@ api.list = async (req, res) => {
     
 };
 
+api.listById = async (req, res) => {
+
+    try {
+        
+        const { id } = req.params;
+        const admin = await adminModel.findOne({ _id: id });
+
+        if(admin) {
+            console.log('############# Admin encontrado ###############');
+            console.log(admin);
+            console.log('##############################################');
+            res.json(admin);
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message });
+    }
+}
+
 api.add = async (req, res) => {
 
     try {
@@ -51,6 +70,6 @@ api.add = async (req, res) => {
             return;
         }
     };
-}
+};
 
 module.exports = api;
