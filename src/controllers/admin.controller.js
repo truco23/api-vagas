@@ -72,4 +72,46 @@ api.add = async (req, res) => {
     };
 };
 
+api.update = async (req, res) => {
+
+    try {
+        
+        const { id } = req.params;
+        const admin = await adminModel.findOneAndUpdate( id, req.body );
+
+        if(admin) {
+
+            admin.set(req.body);
+            admin.save();
+            console.log('############# Admin alterado ###############');
+            console.log(admin);
+            console.log('##############################################');
+            res.json(admin);
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message });
+    }
+};
+
+api.remove = async (req, res) => {
+
+    try {
+        
+        const { id } = req.params;
+        const admin = await adminModel.findOneAndDelete({ _id: id });
+
+        if(admin) {
+
+            console.log('############# Admin removido ###############');
+            console.log(admin);
+            console.log('#############################################');
+            res.status(200).json({ success: 'Admin removido' });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json({ fail: error.message });
+    }
+}
+
 module.exports = api;
