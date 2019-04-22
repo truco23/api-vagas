@@ -2,12 +2,12 @@ const adminModel = require('../models/admin.model');
 let api          = {};
 
 api.list = async (req, res) => {
-
+    
     try {
         const admins = await adminModel.find({});
 
         if(admins) {
-            console.log('############# Vagas listadas ###############');
+            console.log('############# Admins listados ###############');
             res.json(admins);
             return;
         }
