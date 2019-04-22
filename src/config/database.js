@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://drop:drop@cluster0-yai2v.mongodb.net/drop?retryWrites=true', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://drop:drop@cluster0-yai2v.mongodb.net/drop?retryWrites=true', { 
+    useNewUrlParser: true,
+    useCreateIndex :  true,
+})
 
 mongoose.connection.on('connected', function(){
 
