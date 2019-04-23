@@ -12,6 +12,7 @@ api.login = async (req, res) => {
 
         if(login) {
 
+            login.password = undefined;
             console.log('############# Logado ###############');
             console.log(login)
             console.log('####################################');
@@ -32,6 +33,14 @@ api.login = async (req, res) => {
         console.log(error.message);
         res.status(400).json({ fail: error.message });
     }
+};
+
+api.requireToken = async (req, res, next) => {
+
+    const token = req.headers['x-access-token'];
+    console.log(token);
+    console.log('Caminho exige token');
+    next();
 }
 
 module.exports = api;
