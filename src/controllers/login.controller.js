@@ -1,20 +1,29 @@
-const adminModel = require('../models/admin.model');
+const adminModel    = require('../models/admin.model');
+const jwt           = require('jsonwebtoken');
+const authSecret    = require('../config/auth.secret');
 
 let api = {};
 
 api.login = async (req, res) => {
 
     try {
-        console.log(req.body);
-        
         const { email, password } = req.body;
         const login = await adminModel.findOne({ email, password });
 
         if(login) {
+
             console.log('############# Logado ###############');
             console.log(login)
             console.log('####################################');
-            res.json(login)
+
+            const token = jwt.sign(
+                { email: login.email },
+                authSecret.secret,
+                { expiresIn: 86400 }
+            );
+
+            res.set('x-access-token', token);
+            res.json({login, token});
         } else {
             console.log('E-mail ou senha inválidos');
             res.json({fail: 'E-mail ou senha inválidos'});
