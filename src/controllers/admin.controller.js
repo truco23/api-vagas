@@ -5,7 +5,7 @@ let api          = {};
 api.list = async (req, res) => {
     
     try {
-        const admins = await adminModel.find({});
+        const admins = await adminModel.find({}).sort({ createdAt: -1});
 
         if(admins) {
             console.log('############# Admins listados ###############');

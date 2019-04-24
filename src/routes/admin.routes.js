@@ -14,6 +14,6 @@ module.exports = app => {
     app
         .route('/admin/users/:id')
         .get(loginController.requireToken, adminController.listById)
-        .put(adminController.update)
+        .put(loginController.requireToken, adminController.update)
         .delete(adminController.remove)
 };
