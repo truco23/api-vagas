@@ -13,7 +13,7 @@ module.exports = app => {
 
     app
         .route('/admin/users/:id')
-        .get(adminController.listById)
+        .get(loginController.requireToken, adminController.listById)
         .put(adminController.update)
         .delete(adminController.remove)
 };
