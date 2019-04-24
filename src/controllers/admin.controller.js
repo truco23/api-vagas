@@ -88,10 +88,6 @@ api.update = async (req, res) => {
     try {
         
         const { id } = req.params;
-        
-        console.log(id);
-        console.log(req.body);
-
         const admin = await adminModel.findOneAndUpdate({ _id: id }, { $set: req.body});
 
         if(admin) {
