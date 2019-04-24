@@ -18,7 +18,7 @@ api.login = async (req, res) => {
             console.log('####################################');
 
             const token = jwt.sign(
-                { email: login.email },
+                { id: login._id },
                 authSecret.secret,
                 { expiresIn: 86400 }
             );
@@ -37,10 +37,27 @@ api.login = async (req, res) => {
 
 api.requireToken = async (req, res, next) => {
 
+    console.log('############# Caminho necessita de autenticação ###############');
     const token = req.headers['x-access-token'];
-    console.log(token);
-    console.log('Caminho exige token');
-    next();
+
+    if(!token) {
+        console.log('############# Token não informado ###############');
+        res.status(400).json({ fail: 'O token não foi informado' });
+        return;
+    };
+
+    jwt.verify(token, authSecret.secret, (erro, decoded) => {
+
+        if(erro) {
+            console.log('############# Token inválido ###############');
+            res.status(400).json({ fail: 'Token inválido' });
+            return;
+        };
+
+        console.log('############# Acesso permitido ###############');
+        req.user = decoded.id;
+        next();
+    });
 }
 
 module.exports = api;
