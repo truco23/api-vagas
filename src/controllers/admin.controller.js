@@ -43,15 +43,26 @@ api.add = async (req, res) => {
     try {
 
         const { email, password }  = req.body;
-        const admin = await adminModel.create({ email, password });
+        
+        await adminModel.create({ email, password }, (erro, admin) => {
+            
+            if(erro) {
 
-        if(admin) {
+                console.log(erro.errmsg);
+                console.log('E-mail já está cadastrado em nosso sistema');
+                
+                res.status(400).json({ 
+                        fail: erro.errmsg, 
+                        status: 'E-mail já está cadastrado em nosso sistema' 
+                });
+                return;
+            };
 
             console.log('############# Admin cadastrado ###############');
             console.log(admin);
             console.log('##############################################');
             res.json(admin);
-        }
+        })
     } catch (error) {
         console.log(error.message);
         

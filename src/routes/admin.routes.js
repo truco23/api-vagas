@@ -9,7 +9,7 @@ module.exports = app => {
 
     app
         .route('/admin/users/new')
-        .post(adminController.add)
+        .post(loginController.requireToken, adminController.add)
 
     app
         .route('/admin/users/:id')
