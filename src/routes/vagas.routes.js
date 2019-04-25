@@ -1,11 +1,12 @@
 const vagasController = require('../controllers/vagas.controller');
+const loginController = require('../controllers/login.controller');
 
 module.exports = app => {
 
     app
         .route('/vagas')
         .get(vagasController.list)
-        .post(vagasController.add)
+        .post(loginController.requireToken, vagasController.add)
 
     app
         .route('/vagas/:id')
