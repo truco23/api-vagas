@@ -5,7 +5,7 @@ api.list = async (req, res) => {
     
     try {
         
-        const categorias = await categoriasModel.find({});
+        const categorias = await categoriasModel.find({}).sort({ createdAt: -1 });
 
         console.log('############# Listando categorias ###############');
         res.json(categorias)
