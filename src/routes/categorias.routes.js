@@ -12,5 +12,5 @@ module.exports = app => {
         .route('/categorias/:id')
         .get(categoriaController.listById)
         .put(loginController.requireToken, categoriaController.update)
-        .delete(categoriaController.delete)
+        .delete(loginController.requireToken, categoriaController.delete)
 }
