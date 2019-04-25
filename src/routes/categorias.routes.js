@@ -1,11 +1,12 @@
-const categoriaController = require('../controllers/categorias.controller');
+const categoriaController   = require('../controllers/categorias.controller');
+const loginController       = require('../controllers/login.controller');
 
 module.exports = app => {
 
     app
         .route('/categorias')
         .get(categoriaController.list)
-        .post(categoriaController.add)
+        .post(loginController.requireToken, categoriaController.add)
 
     app
         .route('/categorias/:id')
