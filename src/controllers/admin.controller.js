@@ -5,7 +5,7 @@ let api          = {};
 api.list = async (req, res) => {
     
     try {
-        const admins = await adminModel.find({});
+        const admins = await adminModel.find({}).sort({ createdAt: -1});
 
         if(admins) {
             console.log('############# Admins listados ###############');
@@ -43,15 +43,26 @@ api.add = async (req, res) => {
     try {
 
         const { email, password }  = req.body;
-        const admin = await adminModel.create({ email, password });
+        
+        await adminModel.create({ email, password }, (erro, admin) => {
+            
+            if(erro) {
 
-        if(admin) {
+                console.log(erro.errmsg);
+                console.log('E-mail já está cadastrado em nosso sistema');
+                
+                res.status(400).json({ 
+                        fail: erro.errmsg, 
+                        status: 'E-mail já está cadastrado em nosso sistema' 
+                });
+                return;
+            };
 
             console.log('############# Admin cadastrado ###############');
             console.log(admin);
             console.log('##############################################');
             res.json(admin);
-        }
+        })
     } catch (error) {
         console.log(error.message);
         
@@ -77,7 +88,7 @@ api.update = async (req, res) => {
     try {
         
         const { id } = req.params;
-        const admin = await adminModel.findOneAndUpdate( id, req.body );
+        const admin = await adminModel.findOneAndUpdate({ _id: id }, { $set: req.body});
 
         if(admin) {
 
