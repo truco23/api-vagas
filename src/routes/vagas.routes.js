@@ -11,6 +11,6 @@ module.exports = app => {
     app
         .route('/vagas/:id')
         .get(vagasController.listById)
-        .put(vagasController.update)
+        .put( loginController.requireToken, vagasController.update)
         .delete(vagasController.remove)
 }
