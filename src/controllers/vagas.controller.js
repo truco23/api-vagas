@@ -6,7 +6,7 @@ api.list = async (req, res) => {
     
     try {
         
-        const vagas = await vagasModel.find({}).populate('idCategory', 'name');
+        const vagas = await vagasModel.find({}).sort({ createdAt: -1 }).populate('idCategory', 'name');
 
         console.log('############# Vagas listadas ###############');
         res.json(vagas)
