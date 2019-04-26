@@ -49,6 +49,10 @@ api.add = async (req, res) => {
             console.log('############# Vaga cadastrada ###############');
             console.log(vaga);
             console.log('#############################################');
+            
+            console.log('Usando socket.io de vagas');
+            req.io.emit('vaga', vaga);
+
             res.json(vaga);
         }
     } catch (error) {
