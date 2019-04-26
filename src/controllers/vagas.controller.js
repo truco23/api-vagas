@@ -6,10 +6,20 @@ api.list = async (req, res) => {
     
     try {
         
-        const vagas = await vagasModel.find({}).sort({ createdAt: -1 }).populate('idCategory', 'name');
-
+        const vagas = await vagasModel.paginate(
+            {}, 
+            {
+                sort: { createdAt: -1 },
+                populate: {
+                    path: 'idCategory',
+                    select: 'name'
+                },
+                page: 1, limit: 10 
+            }
+        );
+            
         console.log('############# Vagas listadas ###############');
-        res.json(vagas)
+        res.json(vagas);
     } catch (error) {
         console.log(error.message);
         res.status(400).json({ fail: error.message })
@@ -52,7 +62,7 @@ api.add = async (req, res) => {
             
             console.log('Usando socket.io de vagas');
             req.io.emit('vaga', vaga);
-
+            
             res.json(vaga);
         }
     } catch (error) {

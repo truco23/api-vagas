@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose      = require('mongoose');
+const vagasPaginate = require('mongoose-paginate');
 
 const vagas = new mongoose.Schema({
 
@@ -16,5 +17,7 @@ const vagas = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+vagas.plugin(vagasPaginate);
 
 module.exports = mongoose.model('vagas', vagas);
