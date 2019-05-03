@@ -18,7 +18,10 @@ api.login = async (req, res) => {
             console.log('####################################');
 
             const token = jwt.sign(
-                { id: login._id },
+                { 
+                    id: login._id,
+                    email: login.email
+                },
                 authSecret.secret,
                 { expiresIn: 86400 }
             );
@@ -27,7 +30,7 @@ api.login = async (req, res) => {
             res.json({login, token});
         } else {
             console.log('E-mail ou senha inválidos');
-            res.json({fail: 'E-mail ou senha inválidos'});
+            res.status(400).json({fail: 'E-mail ou senha inválidos'});
         }
     } catch (error) {
         console.log(error.message);
