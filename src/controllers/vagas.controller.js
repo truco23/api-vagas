@@ -21,7 +21,7 @@ api.listById = async (req, res) => {
     try {
         
         const { id } = req.params;
-        const vaga = await vagasModel.findOne( { _id: id} );
+        const vaga = await vagasModel.findOne( { _id: id} ).populate('idCategory', 'name');;
 
         if(vaga) {
 
@@ -49,6 +49,7 @@ api.add = async (req, res) => {
             console.log('############# Vaga cadastrada ###############');
             console.log(vaga);
             console.log('#############################################');
+            req.io.emit('vaga', vaga);
             res.json(vaga);
         }
     } catch (error) {
