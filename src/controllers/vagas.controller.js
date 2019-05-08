@@ -61,7 +61,7 @@ api.add = async (req, res) => {
             console.log('############# Vaga cadastrada ###############');
             console.log(vaga);
             console.log('#############################################');
-            req.io.emit('vaga', vaga);
+            req.io.emit('vaga-new', vaga);
             res.json(vaga);
         }
     } catch (error) {
@@ -83,6 +83,7 @@ api.update = async (req, res) => {
             console.log('############# Vaga alterada ###############');
             console.log(vaga);
             console.log('###########################################');
+            req.io.emit('vaga-edit', vaga);
             res.json(vaga);
         }
     } catch (error) {
