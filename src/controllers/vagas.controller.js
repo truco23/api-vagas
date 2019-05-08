@@ -6,6 +6,8 @@ api.list = async (req, res) => {
     
     try {
 
+        const { page = 1 } = req.query;
+
         const vagas = await vagasModel.paginate(
             {}, 
             {
@@ -14,7 +16,7 @@ api.list = async (req, res) => {
                     path: 'idCategory',
                     select: 'name'
                 },
-                page: 1, limit: 10 
+                page, limit: 10 
             }
         );
 
