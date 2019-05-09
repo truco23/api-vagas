@@ -104,6 +104,7 @@ api.remove = async (req, res) => {
             console.log('############# Vaga removida ###############');
             console.log(vaga);
             console.log('###########################################');
+            req.io.emit('vaga-remove', vaga);
             res.status(200).json({ success: 'Vaga removida' });
         }
     } catch (error) {
