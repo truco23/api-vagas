@@ -26,6 +26,10 @@ consign({ cwd: 'src' })
 server.listen(port, () => {
 
     if(port === 3001) {
-        console.log(`Servidor local rodando em http://localhost:${port}`);        
+        console.log(`Servidor local rodando em http://localhost:${ port }`); 
+        return;       
     };
+
+    console.log(`Servidor rodando em ambiente de produção ${ port }`);
+    
 });
