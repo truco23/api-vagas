@@ -3,7 +3,7 @@ const app       = express();
 const server    = require('http').Server(app);
 const io        = require('socket.io')(server);
 const consign   = require('consign');
-const port      = process.env.PORT || 3001;
+const port      = process.env.PORT || 3002;
 
 io.on('connection', socket => {
 
